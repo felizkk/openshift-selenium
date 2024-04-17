@@ -1,0 +1,36 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: python-selenium
+  namespace: demo-selenium
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'python-selenium:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: docker/Dockerfile.PythonSelenium
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: >-
+        https://github.com/felizkk/openshift-selenium.git
+    contextDir: /
+    ## Public repository ##
+    # sourceSecret:
+    #   name: github-credential
+  ## No triggers ##
+  # triggers:
+  #   - type: Generic
+  #     generic:
+  #       secretReference:
+  #         name: python-selenium-generic-webhook-secret
+  #   - type: ConfigChange
+  runPolicy: Serial

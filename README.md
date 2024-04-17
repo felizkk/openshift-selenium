@@ -11,3 +11,4 @@ Pre-requisite:
 - You have a working Openfhit 4 cluster
 - This has been tested with OpenShift v4.15
 
+You will need to change all namespace details

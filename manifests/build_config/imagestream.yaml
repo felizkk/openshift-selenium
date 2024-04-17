@@ -1,0 +1,11 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: python-selenium
+  namespace: demo-selenium
+  labels:
+    app: selenium-hub
+    app.kubernetes.io/component: selenium-hub
+    app.kubernetes.io/instance: selenium-hub
+    app.kubernetes.io/name: selenium-hub
+    app.kubernetes.io/part-of: selenium-grid

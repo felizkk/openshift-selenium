@@ -1,0 +1,58 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: pipeline-webtest
+  namespace: demo-selenium
+spec:
+  params:
+    - name: test_url
+      description: 'Target test website'
+      type: string
+      default: 'https://www.google.com'
+    - name: test_keyword
+      description: 'Single simple keyword check for test website'
+      type: string
+      default: 'Google'
+    - name: selenium_hub_host
+      description: 'Selenium Hub API URL'
+      type: string
+      default: 'http://selenium-hub-demo-selenium.apps.ocpsandbox.example.com/wd/hub'
+  tasks:
+    - name: chrome
+      params:
+        - name: test_url
+          value: $(params.test_url)
+        - name: test_keyword
+          value: $(params.test_keyword)
+        - name: selenium_hub_host
+          value: $(params.selenium_hub_host)
+      taskRef:
+        kind: Task
+        name: webtest-chrome
+    - name: edge
+      params:
+        - name: test_url
+          value: $(params.test_url)
+        - name: test_keyword
+          value: $(params.test_keyword)
+        - name: selenium_hub_host
+          value: $(params.selenium_hub_host)
+      taskRef:
+        kind: Task
+        name: webtest-edge
+      runAfter:
+        - chrome
+    ## Disabling now, not sure how to execute the node ##
+    # - name: firefox
+    #   params:
+    #     - name: test_url
+    #       value: $(params.test_url)
+    #     - name: test_keyword
+    #       value: $(params.test_keyword)
+    #     - name: selenium_hub_host
+    #       value: $(params.selenium_hub_host)
+    #   taskRef:
+    #     kind: Task
+    #     name: webtest-firefox
+    #   runAfter:
+    #     - firefox
