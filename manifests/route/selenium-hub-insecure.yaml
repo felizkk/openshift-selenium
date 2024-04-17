@@ -1,0 +1,21 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: selenium-hub-insecure
+  namespace: demo-selenium
+  labels:
+    app: selenium-hub
+    app.kubernetes.io/component: selenium-hub
+    app.kubernetes.io/instance: selenium-hub
+    app.kubernetes.io/name: selenium-hub
+    app.kubernetes.io/part-of: selenium-grid
+    app.openshift.io/runtime-version: latest
+spec:
+  host: selenium-hub-demo-selenium-nontls.apps.ocpsandbox.example.com
+  to:
+    kind: Service
+    name: selenium-hub
+    weight: 100
+  port:
+    targetPort: 4444-tcp
+  wildcardPolicy: None
