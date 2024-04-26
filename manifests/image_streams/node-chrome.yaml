@@ -1,0 +1,48 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: node-chrome
+  namespace: selenium-test
+  labels:
+    app: node-chrome
+    app.kubernetes.io/component: node-chrome
+    app.kubernetes.io/instance: node-chrome
+    app.kubernetes.io/name: node-chrome
+    app.kubernetes.io/part-of: selenium-grid
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: '110'
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: 'docker.io/selenium/node-chrome:110.0'
+      from:
+        kind: DockerImage
+        name: 'docker.io/selenium/node-chrome:110.0'
+      importPolicy:
+        importMode: Legacy
+      referencePolicy:
+        type: Local
+    - name: '119'
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: 'docker.io/selenium/node-chrome:119.0'
+      from:
+        kind: DockerImage
+        name: 'docker.io/selenium/node-chrome:119.0'
+      importPolicy:
+        importMode: Legacy
+      referencePolicy:
+        type: Local
+    - name: latest
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: 'docker.io/selenium/node-chrome:latest'
+      from:
+        kind: DockerImage
+        name: 'docker.io/selenium/node-chrome:latest'
+      importPolicy:
+        importMode: Legacy
+      referencePolicy:
+        type: Local
